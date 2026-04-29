@@ -1,45 +1,61 @@
 import { getTeams } from "@/lib/teams";
 import Link from "next/link";
-import { FolderGit2, PlayCircle, FileText } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import TeamCard from "./TeamCard";
 
-export default function TeamsPage() {
+const COLORS = [
+  ['#38bdf8', '#0ea5e9'],
+  ['#a78bfa', '#7c3aed'],
+  ['#f472b6', '#db2777'],
+  ['#34d399', '#059669'],
+  ['#fb923c', '#ea580c'],
+  ['#fbbf24', '#d97706'],
+  ['#818cf8', '#4f46e5'],
+  ['#2dd4bf', '#0d9488'],
+  ['#f87171', '#dc2626'],
+  ['#c084fc', '#9333ea'],
+];
+
+export default async function TeamsPage() {
   const teams = getTeams();
 
   return (
-    <div className="animate-fade-in pb-20">
-      <div className="mb-12">
-        <Link href="/" className="text-sm text-[var(--border-accent)] hover:text-[var(--accent)] transition-colors mb-4 inline-block">&larr; Back to Home</Link>
-        <h1 className="text-5xl font-black gradient-text mb-4 mt-2">Section O1 Teams</h1>
-        <p className="text-lg text-[var(--text-secondary)]">Select a team below to view their presentation video, PDF, and project deliverables.</p>
+    <div style={{ paddingBottom: '4rem' }}>
+      {/* Header */}
+      <div className="animate-fade-in-up" style={{ marginBottom: '3rem' }}>
+        <Link href="/" style={{
+          display: 'inline-flex', alignItems: 'center', gap: '6px',
+          fontSize: '0.875rem', color: 'var(--text-muted)', textDecoration: 'none',
+          fontWeight: 600, marginBottom: '1.5rem',
+        }}>
+          <ArrowLeft style={{ width: 14, height: 14 }} />
+          Back to Home
+        </Link>
+
+        <h1 style={{
+          fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', fontWeight: 900,
+          letterSpacing: '-0.04em', marginBottom: '0.75rem', lineHeight: 1.1,
+        }}>
+          <span className="gradient-text">Section O1</span> Teams
+        </h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '500px' }}>
+          Select a team below to view their presentation video, PDF, and all project deliverables.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 gap-6">
+      {/* Teams Grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+        gap: '1.25rem',
+      }}>
         {teams.map((team, i) => (
-          <Link 
-            href={`/teams/${team.id}`}
+          <TeamCard 
             key={team.id}
-            className="group glass rounded-3xl p-6 hover:bg-slate-800/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_var(--accent-glow)] flex flex-col items-center justify-center text-center gap-4 relative overflow-hidden h-[260px] border border-[var(--border)] hover:border-[var(--accent)]/30"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
-            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br ${
-              i % 3 === 0 ? 'from-purple-500/20 to-indigo-500/20 text-indigo-400' :
-              i % 3 === 1 ? 'from-sky-500/20 to-cyan-500/20 text-cyan-400' :
-              'from-emerald-500/20 to-teal-500/20 text-teal-400'
-            } mb-2 relative z-10 shadow-inner group-hover:scale-110 transition-transform duration-500`}>
-              <span className="text-4xl font-black">{team.index}</span>
-            </div>
-
-            <div className="relative z-10 w-full">
-              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-4">{team.name}</h2>
-              
-              <div className="flex items-center justify-center gap-4 mt-auto">
-                {team.videoPath && <PlayCircle className="w-5 h-5 text-sky-400 group-hover:animate-pulse" />}
-                {team.presentationPath && <FileText className="w-5 h-5 text-indigo-400 group-hover:animate-pulse" />}
-                {team.modelPath && <FolderGit2 className="w-5 h-5 text-emerald-400 group-hover:animate-pulse" />}
-              </div>
-            </div>
-          </Link>
+            team={team}
+            colors={COLORS[i % COLORS.length]}
+            animationDelay={`${i * 0.06}s`}
+          />
         ))}
       </div>
     </div>
