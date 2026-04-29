@@ -60,17 +60,6 @@ export default function EnterAnimation({ children }: { children: React.ReactNode
             const ty = Math.sin(rad) * p.dist;
             return (
               <div key={i} style={{
-                position: 'absolute',
-                width: '8px', height: '8px', borderRadius: '50%',
-                background: p.color,
-                boxShadow: `0 0 10px ${p.color}`,
-                animation: `burst-particle 0.65s cubic-bezier(0,0,0.2,1) forwards`,
-                animationDelay: `${i * 0.02}s`,
-                /* We'll use a CSS custom property trick with keyframes below */
-              }}
-                className="burst-particle"
-                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                {...{ style: {
                   position: 'absolute', width: '8px', height: '8px',
                   borderRadius: '50%', background: p.color,
                   boxShadow: `0 0 12px ${p.color}`,
@@ -78,7 +67,8 @@ export default function EnterAnimation({ children }: { children: React.ReactNode
                   transform: 'translate(-50%, -50%) scale(0)',
                   animation: 'burst-particle-scale 0.65s cubic-bezier(0.34,1.56,0.64,1) forwards',
                   animationDelay: `${i * 0.025}s`,
-                }}}
+                }}
+                className="burst-particle"
               />
             );
           })}
