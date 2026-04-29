@@ -1,127 +1,35 @@
-"use client";
+import Link from "next/link";
+import { ArrowRight, BookOpen, Users } from "lucide-react";
 
-import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
-import TeamCard from "@/components/TeamCard";
-import { SectionCardSkeleton as TeamCardSkeleton } from "@/components/Skeletons";
-import { teams } from "@/lib/data";
-import { Sparkles, TrendingUp, BookOpen, FileText, Video } from "lucide-react";
-
-const stats = [
-  { label: "Total Files", value: "70+", icon: FileText, color: "var(--accent)" },
-  { label: "Teams", value: "10", icon: BookOpen, color: "#a78bfa" },
-  { label: "Trending", value: "3 New", icon: TrendingUp, color: "#fb923c" },
-];
-
-
-export default function HomePage() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 900);
-    return () => clearTimeout(t);
-  }, []);
-
+export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: "var(--bg-base)" }}>
-      <Navbar title="Dashboard" />
-
-      <div className="flex-1 p-6 lg:p-8 space-y-10 max-w-[1400px] w-full mx-auto">
-
-        {/* Welcome Banner */}
-        <div
-          className="animate-fade-in-up relative overflow-hidden rounded-2xl p-7"
-          style={{
-            background: "linear-gradient(135deg, rgba(56,189,248,0.15) 0%, rgba(129,140,248,0.1) 50%, rgba(30,41,59,0.8) 100%)",
-            border: "1px solid rgba(56,189,248,0.2)",
-          }}
-        >
-          {/* Decorative circles */}
-          <div
-            className="absolute -top-10 -right-10 w-48 h-48 rounded-full opacity-20"
-            style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
-          />
-          <div
-            className="absolute -bottom-8 right-40 w-32 h-32 rounded-full opacity-10"
-            style={{ background: "radial-gradient(circle, #818cf8 0%, transparent 70%)" }}
-          />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles size={14} style={{ color: "var(--accent)" }} />
-              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--accent)" }}>
-                Spring 2026
-              </span>
-            </div>
-            <h2 className="text-2xl font-bold mb-1" style={{ color: "var(--text-primary)" }}>
-              Welcome to O-1 section, <span className="gradient-text">Guys</span> 👋
-            </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-              Your Central Hub for Class Activities
-              Explore team-wise resources, including notes, presentations, and videos — all organized for easy access and seamless learning.
-            </p>
-          </div>
-        </div>
-
-        {/* Stats Row */}
-        <div
-          className="animate-fade-in-up grid grid-cols-2 lg:grid-cols-3 gap-4"
-          style={{ animationDelay: "80ms" }}
-        >
-          {stats.map(({ label, value, icon: Icon, color }) => (
-            <div
-              key={label}
-              className="flex items-center gap-3.5 p-4 rounded-xl"
-              style={{
-                background: "var(--bg-card)",
-                border: "1px solid var(--border)",
-              }}
-            >
-              <div
-                className="w-9 h-9 flex items-center justify-center rounded-lg shrink-0"
-                style={{ background: `${color}18` }}
-              >
-                <Icon size={17} style={{ color }} strokeWidth={2} />
-              </div>
-              <div>
-                <p className="text-lg font-bold leading-none" style={{ color: "var(--text-primary)" }}>
-                  {value}
-                </p>
-                <p className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
-                  {label}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Teams Grid */}
-        <section>
-          <div className="flex items-center justify-between mb-5">
-            <div>
-              <h2 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-                Teams
-              </h2>
-              <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
-                Browse all teams and resources
-              </p>
-            </div>
-            <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: "var(--bg-card)", color: "var(--text-muted)", border: "1px solid var(--border)" }}>
-              {teams.length} teams
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {loading
-              ? Array.from({ length: 10 }).map((_, i) => <TeamCardSkeleton key={i} />)
-              : teams.map((team, i) => (
-                <div key={team.id} className="animate-fade-in-up" style={{ animationDelay: `${i * 60}ms` }}>
-                  <TeamCard team={team} index={i} />
-                </div>
-              ))}
-          </div>
-        </section>
-
+    <div className="flex flex-col items-center justify-center min-h-[85vh] text-center animate-fade-in-up">
+      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border-accent)] bg-[var(--bg-card)]/50 backdrop-blur-sm mb-8">
+        <BookOpen className="w-4 h-4 text-[var(--accent)]" />
+        <span className="text-sm font-medium tracking-wider uppercase text-[var(--text-secondary)]">
+          Vellore Institute of Technology
+        </span>
       </div>
+
+      <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6 mt-4">
+        English PBL <br className="hidden md:block" />
+        <span className="gradient-text">Showcase</span>
+      </h1>
+
+      <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-12 max-w-2xl leading-relaxed">
+        Explore the phenomenal Project Based Learning presentations from <strong className="text-[var(--text-primary)]">Section O1, Room 822</strong>.
+        <br /><span className="text-lg opacity-80 mt-2 block">Faculty: Dr. B. Monika Nair</span>
+      </p>
+
+      <Link
+        href="/teams"
+        className="group relative inline-flex items-center justify-center gap-3 px-8 py-5 bg-[var(--text-primary)] text-[var(--bg-base)] font-bold rounded-2xl overflow-hidden transition-transform hover:scale-[1.03] active:scale-[0.98] shadow-2xl shadow-sky-500/20"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-sky-400 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <Users className="w-6 h-6 relative z-10" />
+        <span className="text-xl relative z-10">View All Teams</span>
+        <ArrowRight className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
+      </Link>
     </div>
   );
 }

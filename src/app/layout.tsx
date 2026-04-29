@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
-  title: "EduVault – Your Learning Hub",
+  title: "English PBL Showcase | Section O1",
   description:
-    "A modern, premium learning platform for students. Access lecture notes, videos, assignments, and resources in one place.",
-  keywords: ["learning platform", "study resources", "lectures", "assignments", "education"],
+    "Showcasing the English Project Based Learning presentations from Section O1, Room 822. Faculty: Dr. B. Monika Nair.",
+  keywords: ["english pbl", "presentations", "section o1"],
 };
 
 export default function RootLayout({
@@ -17,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <main className="flex-1 min-w-0">{children}</main>
+        <div className="flex flex-col min-h-screen relative overflow-hidden bg-[var(--bg-base)]">
+          {/* subtle background glow effects */}
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-sky-600/20 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse"></div>
+          <main className="flex-1 min-w-0 z-10 w-full max-w-7xl mx-auto p-6 md:p-12">{children}</main>
         </div>
       </body>
     </html>
